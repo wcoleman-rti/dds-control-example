@@ -1,0 +1,80 @@
+//
+// (c) 2026 Copyright, Real-Time Innovations, Inc. (RTI) All rights reserved.
+//
+// RTI grants Licensee a license to use, modify, compile, and create derivative
+// works of the Software solely in combination with RTI Connext DDS. Licensee
+// may redistribute copies of the Software provided that all such copies are
+// subject to this License. The Software is provided "as is", with no warranty
+// of any type, including any warranty for fitness for any purpose. RTI is
+// under no obligation to maintain or support the Software. RTI shall not be
+// liable for any incidental or consequential damages arising out of the use or
+// inability to use the Software. For purposes of clarity, nothing in this
+// License prevents Licensee from using alternate versions of DDS, provided
+// that Licensee may not combine or link such alternate versions of DDS with
+// the Software.
+//
+
+// module translates to namespace in C++
+module control {
+
+    // Alias types become available in generated code and can be used by application code as a type
+    typedef string<16> Uid;
+    const Uid ALL_TARGETS = "_ALL_";
+
+    // Enums become enum classes, first value is used as default value for the enum type
+    enum ModeType {
+        ERROR,
+        IDLE,
+        ACTIVE
+    };
+
+    enum ActionType {
+        STOP,
+        START,
+        PAUSE
+    };
+
+    enum AlertLevel {
+        INFO,
+        WARNING,
+        CRITICAL
+    };
+
+    // Nested means the struct cannot be used as a topic type
+    @nested
+    struct Pose {
+        float x;
+        float y;
+        float z;
+    };
+
+    // --- Topic types ---
+    // @key fields identify unique instances within a topic
+
+    // State is published on change
+    struct State {
+        @key Uid source_id;
+        ModeType mode;
+    };
+
+    // Position is streamed at a fixed frequency
+    struct Position {
+        @key Uid source_id;
+        Pose pose;
+    };
+
+    // Command is published on demand and targets a specified instance
+    struct Command {
+        @key Uid target_id;
+        ActionType action;
+        @optional Pose target_pose;
+    };
+
+    // Alert is published on demand
+    struct Alert {
+        @key Uid source_id;
+        AlertLevel level;
+        @optional string<128> message;
+    };
+
+}; // module control
