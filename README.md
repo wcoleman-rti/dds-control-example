@@ -14,7 +14,7 @@ state/position/alerts.
 - [RTI Connext DDS](https://www.rti.com/) 7.3+
   installed, with `NDDSHOME` set
 - CMake 3.17+
-- gcc with C++17 support
+- gcc 8.5.0+
 - Python 3.10+ with `rti.connextdds` package
 
 ## Environment
@@ -41,9 +41,17 @@ cmake -B build && cmake --build build
 
 ## Run
 
+*C++ and Python apps are interoperable — you can*
+*mix them (e.g. C++ target with Python controller).*
+
+*Run apps from the project root dir to load `USER_QOS_PROFILES.xml` by default.*
+
 ### C++
 
 Open two terminals from the project root:
+
+*You may need to source `rtisetenv_<arch>` script before running to load*
+*RTI Connext shared libraries on `LD_LIBRARY_PATH`.*
 
 ```bash
 # Terminal 1 — start a target
@@ -57,6 +65,8 @@ Open two terminals from the project root:
 
 Open two terminals from the project root:
 
+*You will need to activate the python virtual environment before running.*
+
 ```bash
 # Terminal 1 — start a target
 python src/py/target.py --uid target-1
@@ -64,9 +74,6 @@ python src/py/target.py --uid target-1
 # Terminal 2 — start the controller
 python src/py/controller.py --priority 5
 ```
-
-> C++ and Python apps are interoperable — you can
-> mix them (e.g. C++ target with Python controller).
 
 ## Controller Commands
 
