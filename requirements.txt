@@ -1,1 +1,1 @@
-rti.connext>=7.3
+rti.connext>=7.7

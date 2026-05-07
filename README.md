@@ -1,7 +1,7 @@
 # Quick Start "Control" Example
 
 A simple DDS controller/target example using
-RTI Connext DDS 7.x, implemented in both C++ and Python.
+RTI Connext DDS 7.7, implemented in both C++ and Python.
 
 A **controller** discovers targets, sends commands
 (start, stop, pause), and monitors alerts.
@@ -11,11 +11,11 @@ state/position/alerts.
 
 ## Prerequisites
 
-- RTI Connext 7.3+
+- RTI Connext 7.7+
 - CMake 3.17+
 - gcc 8.5.0+
 - Python 3.10+ with packages:
-  - rti.connext>=7.3
+  - rti.connext>=7.7
 
 ## Environment
 
